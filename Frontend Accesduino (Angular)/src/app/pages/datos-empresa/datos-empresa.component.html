@@ -1,0 +1,129 @@
+<nb-card accent="primary" status="basic">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>{{title}}</h4>
+      </div>
+      <div class="medio"></div>
+      <div class="lateral text-right" *ngIf="permissionUser.comprobarPermiso('Update datos')">
+        <button nbButton size="medium" shape="round" hero status="primary">
+          <nb-icon class="sizeXL" icon="edit-2" [options]="{animation: {type: 'pulse'}}" (click)="edicion = true"></nb-icon>
+        </button>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body class="align-items-center">
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="datosForm" >
+      <div class="row">
+        <div class="col">
+          <div class="form-group border">
+            <label for="nombre" class="col-sm-5 col-form-label text-black-50">
+              Nombre:
+            </label>
+            <div class="col">
+              <input [readOnly]="!edicion" type="text" id="nombre"  formControlName="nombre"
+                     [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group border">
+                <label for="email" class="col-sm col-form-label text-black-50">
+                  Email:
+                </label>
+                <div class="col-sm ">
+                  <input [readOnly]="!edicion" id="email"  formControlName="email"
+                         [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group border">
+                <label for="telefono" class="col-sm col-form-label text-black-50">
+                  Telefono:
+                </label>
+                <div class="col-sm">
+                  <input type="text" [readOnly]="!edicion" id="telefono"  formControlName="telefono"
+                         [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group border">
+                <label for="direccion" class="col-sm-5 col-form-label text-black-50">
+                  Dirección:
+                </label>
+                <div class="col-sm">
+              <textarea type="text" [readOnly]="!edicion" id="direccion"  formControlName="direccion" rows="9"
+                        [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion} ">
+              </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group border">
+                <label for="codigopostal" class="col-sm col-form-label text-black-50">
+                  Código postal:
+                </label>
+                <div class="col-sm">
+                  <input type="text" [readOnly]="!edicion" id="codigopostal"  formControlName="codigopostal"
+                         [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+                </div>
+              </div>
+              <div class="form-group border">
+                <label for="poblacion" class="col-sm-5 col-form-label text-black-50">
+                  Población:
+                </label>
+                <div class="col-sm">
+                  <input type="text" [readOnly]="!edicion" id="poblacion"  formControlName="poblacion"
+                         [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+                </div>
+              </div>
+              <div class="form-group border">
+                <label for="provincia" class="col-sm-5 col-form-label text-black-50">
+                  Provincia:
+                </label>
+                <div class="col-sm">
+                  <input type="text" [readOnly]="!edicion" id="provincia"  formControlName="provincia"
+                         [ngClass]="{'form-control-plaintext':!edicion, 'form-control':edicion}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <nb-card>
+            <nb-card-body>
+              <img  [src]="imagePreview == null ? datos?.asset.links.thumb : imagePreview" class="card-img-top" id="imagen">
+            </nb-card-body>
+            <nb-card-footer *ngIf="edicion">
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="assets"  (change)="onFileChange($event)"/>
+                  <label class="custom-file-label" for="assets">{{file ? file.name : ''}}</label>
+                </div>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="text-center butons" *ngIf="edicion">
+    <button type="button" nbButton status="success" (click)="guardar()">
+    Guardar
+    </button>
+
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+  </nb-card-footer>
+</nb-card>

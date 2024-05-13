@@ -1,0 +1,232 @@
+
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="roleForm">
+      <div class="form-group row">
+        <label for="name" class="label col-sm3 col-form-label">
+          Nombre:
+        </label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth id="name" formControlName="nombre" placeholder="Nombre">
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <h6>
+              Permisos
+            </h6>
+          </div>
+          <div class="card-body scroll">
+            <nb-accordion>
+              <nb-accordion-item #user>
+                <nb-accordion-item-header>
+                  Usuarios
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List users" [checked]="isPermission('List users')" status="primary"
+                                 (change)="updatedChecked($event, 'List users')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create users" [checked]="isPermission('Create users')" status="success"
+                                 (change)="updatedChecked($event, 'Create users')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update users" [checked]="isPermission('Update users')" status="basic"
+                                 (change)="updatedChecked($event, 'Update users')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete users" [checked]="isPermission('Delete users')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete users')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+              <nb-accordion-item #roles>
+                <nb-accordion-item-header>
+                  Roles
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List roles" [checked]="isPermission('List roles')"  status="primary"
+                                 (change)="updatedChecked($event, 'List roles')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create roles" [checked]="isPermission('Create roles')" status="success"
+                                 (change)="updatedChecked($event, 'Create roles')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update roles" [checked]="isPermission('Update roles')" status="basic"
+                                 (change)="updatedChecked($event, 'Update roles')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete roles" [checked]="isPermission('Delete roles')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete roles')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+              <nb-accordion-item #permiso>
+                <nb-accordion-item-header>
+                  Permisos
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List permissions" [checked]="isPermission('List permissions')"  status="primary"
+                                 (change)="updatedChecked($event, 'List permissions')">Ver</nb-checkbox>
+                    <nb-checkbox id="Update permissions" [checked]="isPermission('Update permissions')" status="basic"
+                                 (change)="updatedChecked($event, 'Update permissions')">Crear</nb-checkbox>
+                    <nb-checkbox id="Assign permissions" [checked]="isPermission('Assign permissions')" status="success"
+                                 (change)="updatedChecked($event, 'Assign permissions')">Asignar</nb-checkbox>
+                    <nb-checkbox id="Revoke permissions" [checked]="isPermission('Revoke permissions')" status="danger"
+                                 (change)="updatedChecked($event, 'Revoke permissions')">Revocar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+              <nb-accordion-item #datos>
+                <nb-accordion-item-header>
+                  Datos empresa
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List datos" [checked]="isPermission('List datos')"  status="primary"
+                                 (change)="updatedChecked($event, 'List datos')">Ver</nb-checkbox>
+                    <nb-checkbox id="Update datos" [checked]="isPermission('Update datos')" status="basic"
+                                 (change)="updatedChecked($event, 'Update datos')">Modificar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #puestos>
+                <nb-accordion-item-header>
+                  Puestos de trabajo
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List puestos" [checked]="isPermission('List puestos')"  status="primary"
+                                 (change)="updatedChecked($event, 'List puestos')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create puestos" [checked]="isPermission('Create puestos')" status="success"
+                                 (change)="updatedChecked($event, 'Create puestos')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update puestos" [checked]="isPermission('Update puestos')" status="basic"
+                                 (change)="updatedChecked($event, 'Update puestos')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete puestos" [checked]="isPermission('Delete puestos')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete puestos')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #horarios>
+                <nb-accordion-item-header>
+                  Horarios
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List horarios" [checked]="isPermission('List horarios')"  status="primary"
+                                 (change)="updatedChecked($event, 'List horarios')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create horarios" [checked]="isPermission('Create horarios')" status="success"
+                                 (change)="updatedChecked($event, 'Create horarios')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update horarios" [checked]="isPermission('Update horarios')" status="basic"
+                                 (change)="updatedChecked($event, 'Update horarios')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete horarios" [checked]="isPermission('Delete horarios')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete horarios')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #tiposPermisos>
+                <nb-accordion-item-header>
+                  Tipo de permiso
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List tipoPermiso" [checked]="isPermission('List tipoPermiso')"  status="primary"
+                                 (change)="updatedChecked($event, 'List tipoPermiso')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create tipoPermiso" [checked]="isPermission('Create tipoPermiso')" status="success"
+                                 (change)="updatedChecked($event, 'Create tipoPermiso')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update tipoPermiso" [checked]="isPermission('Update tipoPermiso')" status="basic"
+                                 (change)="updatedChecked($event, 'Update tipoPermiso')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete tipoPermiso" [checked]="isPermission('Delete tipoPermiso')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete tipoPermiso')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #permisos>
+                <nb-accordion-item-header>
+                  Permisos de trabajo
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List permisosTrabajo" [checked]="isPermission('List permisosTrabajo')"  status="primary"
+                                 (change)="updatedChecked($event, 'List permisosTrabajo')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create permisosTrabajo" [checked]="isPermission('Create permisosTrabajo')" status="success"
+                                 (change)="updatedChecked($event, 'Create permisosTrabajo')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update permisosTrabajo" [checked]="isPermission('Update permisosTrabajo')" status="basic"
+                                 (change)="updatedChecked($event, 'Update permisosTrabajo')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete permisosTrabajo" [checked]="isPermission('Delete permisosTrabajo')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete permisosTrabajo')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #registros>
+                <nb-accordion-item-header>
+                  Registros
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List registros" [checked]="isPermission('List registros')"  status="primary"
+                                 (change)="updatedChecked($event, 'List users')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create registros" [checked]="isPermission('Create registros')" status="success"
+                                 (change)="updatedChecked($event, 'Create registros')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update registros" [checked]="isPermission('Update registros')" status="basic"
+                                 (change)="updatedChecked($event, 'Update registros')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete registros" [checked]="isPermission('Delete registros')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete registros')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #empleados>
+                <nb-accordion-item-header>
+                  Empleados
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="List empleados" [checked]="isPermission('List empleados')"  status="primary"
+                                 (change)="updatedChecked($event, 'List empleados')">Ver</nb-checkbox>
+                    <nb-checkbox id="Create empleados" [checked]="isPermission('Create empleados')" status="success"
+                                 (change)="updatedChecked($event, 'Create empleados')">Crear</nb-checkbox>
+                    <nb-checkbox id="Update empleados" [checked]="isPermission('Update empleados')" status="basic"
+                                 (change)="updatedChecked($event, 'Update empleados')">Modificar</nb-checkbox>
+                    <nb-checkbox id="Delete empleados" [checked]="isPermission('Delete empleados')" status="danger"
+                                 (change)="updatedChecked($event, 'Delete empleados')">Borrar</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <nb-accordion-item #reportes>
+                <nb-accordion-item-header>
+                  Reportes
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="list-inline">
+                    <nb-checkbox id="Run reportes" [checked]="isPermission('Run reportes')"  status="primary"
+                                 (change)="updatedChecked($event, 'Run reportes')">Permitir reportes</nb-checkbox>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+            </nb-accordion>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="buttons-row text-center">
+
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </nb-card-footer>
+</nb-card>
+

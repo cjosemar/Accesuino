@@ -1,0 +1,35 @@
+<nb-card [accent]="new ? 'success' : 'primary'" status="basic">
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="tipoPermisoForm">
+      <div class="form-group">
+        <label for="nombre" class="label">
+          Nombre:
+        </label>
+        <input type="text" nbInput fullWidth id="nombre" formControlName="nombre" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+        <label for="descripcion" class="label">
+          Descripción:
+        </label>
+        <input type="text" nbInput fullWidth id="descripcion" formControlName="descripcion" placeholder="Descripción">
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="buttons-row text-center">
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </nb-card-footer>
+</nb-card>

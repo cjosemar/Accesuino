@@ -1,0 +1,91 @@
+<nb-card accent="primary" status="basic">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>Empleados</h4>
+      </div>
+      <div class="medio"></div>
+      <div class="lateral text-right" *ngIf="permissionUser.comprobarPermiso('Create empleados')">
+        <button nbButton size="medium" shape="round" hero status="primary">
+          <nb-icon class="sizeXL" icon="plus" [options]="{animation: {type: 'pulse'}}" (click)="openEdit()"></nb-icon>
+        </button>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table text-center table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th></th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Nif</th>
+        <th>Telefono</th>
+        <th>Puesto</th>
+        <th>Horario</th>
+        <th *ngIf="permissionUser.comprobarPermiso('Update empleados') ||
+           permissionUser.comprobarPermiso('Delete empleados')">Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let e of empleados; index as i">
+        <td class="centerRow">{{i + 1}}</td>
+        <td><nb-user onlyPicture size="medium" [picture]="e.asset.id !== IMGNOTFOUND ? e.asset.links.thumb : ''" [name]="e.nombre"></nb-user></td>
+        <td>{{e.nombre}}</td>
+        <td>{{e.apellidos}}</td>
+        <td>{{e.nif}}</td>
+        <td>{{e.telefono}}</td>
+        <td>{{e.puesto.nombre}}</td>
+        <td>{{e.horario.nombre}}</td>
+        <td class="row" *ngIf="permissionUser.comprobarPermiso('Update empleados') ||
+           permissionUser.comprobarPermiso('Delete empleados')">
+          <a class="lateral" href="javascript:void(0)">
+            <nb-icon icon="edit-2" [options]="{animation: {type: 'pulse'}}" status="success" (click)="openEdit(e)"
+                     *ngIf="permissionUser.comprobarPermiso('Update empleados')"></nb-icon>
+          </a>
+          <a class="lateral" href="javascript:void(0)">
+            <nb-icon icon="trash-2" [options]="{animation: {type: 'pulse'}}" status="danger" (click)="deleteHorario(e)"
+                     *ngIf="permissionUser.comprobarPermiso('Delete empleados')"></nb-icon>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+
+  <nb-card-footer *ngIf="meta?.total_pages > 1">
+    <nav>
+      <u class="pagination justify-content-center">
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getEmpleados(1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-left"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getEmpleados(meta.current_page - 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-back"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let a of paginador; index as p" (click)="getEmpleados(a)"
+            [ngClass]="{active: meta.current_page === a}">
+          <a class="page-link" href="javascript:void(0)">{{p+1}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getEmpleados(meta.current_page + 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-forward"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getEmpleados(meta.total_pages)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-right"></nb-icon>
+          </a>
+        </li>
+      </u>
+    </nav>
+  </nb-card-footer>
+</nb-card>
+

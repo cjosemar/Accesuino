@@ -1,0 +1,76 @@
+<nb-card [accent]="new ? 'success' : 'primary'" status="basic">
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="permisoForm">
+      <div class="row border">
+        <div class="col border">
+          <div class="row">
+            <div class="col-sm-">
+              <div class="form-group">
+                <label for="empleado" class="label">
+                  Empleado:
+                </label>
+                <nb-select id="empleado" fullWidth [formControl]="permisoForm.controls.empleadoUuid">
+                  <nb-option *ngFor="let e of empleados; index as i" [value]="e.id">{{e.nombre}} {{e.apellidos}}</nb-option>
+                </nb-select>
+              </div>
+              <div class="form-group">
+                <label for="tipoPermiso" class="label">
+                  Tipo de permiso:
+                </label>
+                <nb-select id="tipoPermiso" fullWidth  [formControl]="permisoForm.controls.tipoPermisoUuid">
+                  <nb-option *ngFor="let tp of tiposPermisos; index as i" [value]="tp.id">{{tp.nombre}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="inicio" class="label">
+                  Inicio:
+                </label>
+                <input type="date" nbInput fullWidth id="inicio" [formControl]="permisoForm.controls.inicio">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="fin" class="label">
+                  Inicio:
+                </label>
+                <input type="date" nbInput fullWidth id="fin" [formControl]="permisoForm.controls.fin">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="observaciones" class="label">
+                  Observaciones:
+                </label>
+                <input type="text" nbInput fullWidth id="observaciones" placeholder="Observaciones" [formControl]="permisoForm.controls.observaciones">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="buttons-row text-center">
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </nb-card-footer>
+</nb-card>

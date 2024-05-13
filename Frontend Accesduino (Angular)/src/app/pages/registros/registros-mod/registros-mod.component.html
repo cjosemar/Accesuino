@@ -1,0 +1,75 @@
+<nb-card accent="success" status="basic">
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="registroForm">
+      <div class="row border">
+        <div class="col border">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="empleado" class="label">
+                  Empleado:
+                </label>
+                <nb-select id="empleado" fullWidth [formControl]="registroForm.controls.empleadoUuid">
+                  <nb-option *ngFor="let e of empleados; index as i" [value]="e.id">{{e.nombre}} {{e.apellidos}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label for="inicioDate" class="label">
+              Inicio:
+            </label>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="date" nbInput id="inicioDate" [formControl]="registroForm.controls.inicioDate" (change)="calcularDuracion()">
+                <input type="time" nbInput id="inicioTime" [formControl]="registroForm.controls.inicioTime" (change)="calcularDuracion()">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label for="finDate" class="label">
+              Fin:
+            </label>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="date" nbInput id="finDate" [formControl]="registroForm.controls.finDate" (change)="calcularDuracion()">
+                <input type="time" nbInput id="finTime" [formControl]="registroForm.controls.finTime" (change)="calcularDuracion()">
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-sm-3"> </div>
+            <div class="col">
+              <div class="form-group align-content-sm-center">
+                <div class="d-inline p-2 bg-primary text-white">Total horas: {{registro.duracion}}</div>
+              </div>
+            </div>
+            <div class="col-sm-3"> </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="buttons-row text-center">
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </nb-card-footer>
+</nb-card>

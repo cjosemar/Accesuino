@@ -1,0 +1,38 @@
+@import "../../@theme/components/styles/themes";
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.medio {
+  flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+}
+
+.lateral {
+  flex: 5;
+  -webkit-flex: 5;
+  -ms-flex: 5;
+}
+
+.sizeXL {
+  font-size: 3rem;
+}
+
+@include nb-install-component() {
+  .buttons-row {
+    margin: -0.5rem;
+  }
+
+  button[nbButton] {
+    margin: 0.8rem;
+  }
+
+  .scroll {
+    max-height: 20rem;
+    overflow-y: auto;
+  }
+
+}

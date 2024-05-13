@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="home345337518.1and1-data.host" id="6e194a52-b6a9-4e20-a527-b6631bd66184" port="22" customName="accesduino" nameFormat="CUSTOM" username="u60664236-accesduino" />
+    </configs>
+  </component>
+</project>

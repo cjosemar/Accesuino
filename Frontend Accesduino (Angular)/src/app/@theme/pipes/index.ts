@@ -1,0 +1,1 @@
+export * from './mayusculas.pipe';

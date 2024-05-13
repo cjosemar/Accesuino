@@ -1,0 +1,138 @@
+
+<nb-card accent="primary" status="basic">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>Registros</h4>
+      </div>
+      <div class="medio text-right">
+        <div class="row g-2 align-items-center">
+          <div class="col-auto">
+            <label for="empleado" class="label">
+              Empleado:
+            </label>
+          </div>
+          <div class="col-8">
+            <nb-select id="empleado" fullWidth placeholder="Filtrar por empleado">
+              <nb-option *ngFor="let e of empleados; index as i" [value]="e.id" (selectionChange)="onSelectionChange($event)">{{e.nombre}} {{e.apellidos}}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col">
+            <button type="button" nbButton status="success" (click)="getRegistros(this.pagina)">
+              <nb-icon icon="sync-outline" > </nb-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table text-center table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Estado</th>
+        <th>Empleado</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Duración</th>
+        <th *ngIf="permissionUser.comprobarPermiso('Update registros') ||
+           permissionUser.comprobarPermiso('Delete registros')">Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let p of registros; index as i">
+        <td>{{i + 1}}</td>
+        <td>
+          <nb-icon [icon]= "p.control_terminado == 1 ? 'toggle-right-outline' : 'toggle-left-outline'" [options]="{animation: {type: 'pulse'}}" [status]="p.control_terminado == 1 ? 'basic' : 'success'"></nb-icon>
+        </td>
+        <td>{{p.empleado.nombre}} {{p.empleado.apellidos}}</td>
+        <td>{{p.inicio | date:'dd/MM/y H:mm'}}</td>
+        <td>{{p.fin | date:'dd/MM/y H:mm'}}</td>
+        <td>{{p.duracion}}</td>
+        <td class="row" *ngIf="permissionUser.comprobarPermiso('Update registros') ||
+           permissionUser.comprobarPermiso('Delete registros')">
+          <a class="lateral" href="javascript:void(0)" *ngIf="p.control_terminado == 1">
+            <nb-icon icon="edit-2" [options]="{animation: {type: 'pulse'}}" status="success" (click)="openEdit(p)"
+                     *ngIf="permissionUser.comprobarPermiso('Update registros')"></nb-icon>
+          </a>
+          <a class="lateral" href="javascript:void(0)" *ngIf="p.control_terminado == 1">
+            <nb-icon icon="trash-2" [options]="{animation: {type: 'pulse'}}" status="danger" (click)="deleteRegistros(p)"
+                     *ngIf="permissionUser.comprobarPermiso('Delete registros')"></nb-icon>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+  <nb-card-footer *ngIf="meta?.total_pages > 1 && meta?.total_pages < 15">
+    <nav>
+      <u class="pagination justify-content-center">
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getRegistros(1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-left"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getRegistros(meta.current_page - 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-back"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let a of paginador; index as p" (click)="getRegistros(a)"
+            [ngClass]="{active: meta.current_page === a}">
+          <a class="page-link" href="javascript:void(0)">{{p+1}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getRegistros(meta.current_page + 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-forward"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getRegistros(meta.total_pages)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-right"></nb-icon>
+          </a>
+        </li>
+      </u>
+    </nav>
+  </nb-card-footer>
+
+  <nb-card-footer *ngIf="meta?.total_pages > 15">
+    <nav>
+      <u class="pagination justify-content-center">
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getRegistros(1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-left"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === 1}"  (click)="getRegistros(meta.current_page - 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-back"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" *ngIf="pagina > 4">
+          <a class="page-link" href="javascript:void(0)">...</a>
+        </li>
+        <li class="page-item" *ngFor="let a of paginador; index as p" (click)="getRegistros(a)"
+            [ngClass]="{active: meta.current_page === a}">
+          <a class="page-link" href="javascript:void(0)" *ngIf="p > pagina - 5 && p < pagina + 5  ">{{p+1}}</a>
+        </li>
+        <li class="page-item" *ngIf="meta.total_pages - pagina > 5">
+          <a class="page-link" href="javascript:void(0)">...</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getRegistros(meta.current_page + 1)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrow-ios-forward"></nb-icon>
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled: meta.current_page === meta.total_pages}" (click)="getRegistros(meta.total_pages)">
+          <a class="page-link" href="javascript:void(0)">
+            <nb-icon icon="arrowhead-right"></nb-icon>
+          </a>
+        </li>
+      </u>
+    </nav>
+  </nb-card-footer>
+</nb-card>

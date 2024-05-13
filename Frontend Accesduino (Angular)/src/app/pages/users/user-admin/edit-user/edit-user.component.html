@@ -1,0 +1,99 @@
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="userForm">
+      <div class="form-group">
+        <label for="name" class="label">
+          Nombre:
+        </label>
+        <input type="text" nbInput fullWidth id="name" formControlName="name" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+        <label for="email" class="label">
+          Email:
+        </label>
+        <input type="email" nbInput fullWidth id="email" formControlName="email" placeholder="Email">
+      </div>
+      <div class="form-group" *ngIf="new">
+        <label for="password" class="label">
+          Password:
+        </label>
+        <input type="password" nbInput fullWidth id="password" formControlName="password">
+      </div>
+      <div class="form-group " *ngIf="new">
+        <label for="password_confirmation" class="label">
+          Confirmación del password:
+        </label>
+        <input type="password" nbInput fullWidth id="password_confirmation" formControlName="password_confirmation">
+      </div>
+    </form>
+
+      <div class="card">
+        <div class="card-header">
+          <h6>
+            Roles
+          </h6>
+        </div>
+        <div class="card-body scroll" *ngIf="user && user.roles">
+          <nb-list *ngIf="user.roles[0].length > 0">
+            <nb-list-item *ngFor="let role of user.roles[0]">
+              <nb-user [name]="role.name"></nb-user>
+            </nb-list-item>
+          </nb-list>
+        </div>
+        <div class="card-footer container">
+
+          <div class="row">
+            <div class="col-6 text-center">
+              <nb-icon icon="plus-circle"(click)="openRoles('add')" status="success"></nb-icon>
+            </div>
+            <div class="col-6 text-center">
+              <nb-icon icon="minus-circle"(click)="openRoles('remove')" status="danger"></nb-icon>
+            </div>
+          </div>
+      </div>
+
+      </div>
+
+  </nb-card-body>
+  <nb-card-footer class="buttons-row text-center">
+
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </nb-card-footer>
+</nb-card>
+
+<ng-template #roles let-data let-ref="dialogRef">
+<nb-card accent="info" size="small">
+  <nb-card-body>
+    <table class="table text-center table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+      </tr>
+      </thead>
+
+      <tbody class="scroll">
+      <tr *ngFor="let u of data; index as i" (click)="ref.close(u)">
+        <td>{{i + 1}}</td>
+        <td>{{u.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+</nb-card>
+</ng-template>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a1cb577b-f836-417e-bbee-8acddf4ebd8e" name="accesduino" url="http://home345337518.1and1-data.host">
+        <fileTransfer accessType="SFTP" host="home345337518.1and1-data.host" port="22" sshConfigId="6e194a52-b6a9-4e20-a527-b6631bd66184" sshConfig="accesduino">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

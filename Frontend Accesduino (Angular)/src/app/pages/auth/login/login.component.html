@@ -1,0 +1,52 @@
+  <h1 class="title" style="text-align: center" >Administración Accesduino 3.0</h1>
+<nb-layout windowMode>
+  <nb-layout-column class="small">
+
+  </nb-layout-column>
+
+  <nb-layout-column>
+    <h1 id="title" class="title">Login</h1>
+
+    <p class="sub-title">Entra con tu email.</p>
+
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+
+    <form [formGroup]="loginForm" (submit)="login()">
+      <div class="form-control-group">
+        <label for="username">Email:</label>
+        <input nbInput fullWidth type="email" id="username" formControlName="email"
+               class="form-control">
+      </div>
+      <div class="form-control-group">
+        <label for="password">Password:</label>
+        <input nbInput fullWidth type="password" id="password" formControlName="password"
+               class="form-control">
+      </div>
+
+      <button nbButton fullWidth status="success" type="submit" >
+        Entrar
+      </button>
+
+    </form>
+
+    <div style="padding-top: 5px">
+      <button type="button" class="btn btn-secondary float-left" (click)="irRegistro()" style="width: 49%">
+        <nb-icon icon="clock-outline"  [options]="{animation: {type: 'pulse'}}"></nb-icon> Registro
+      </button>
+      <button type="button" class="btn btn-secondary float-right" style="width: 49%" (click)="irAyudaRegistro()">
+        <nb-icon icon="question-mark-outline"  [options]="{animation: {type: 'pulse'}}"></nb-icon>  Ayuda
+      </button>
+    </div>
+  </nb-layout-column>
+
+  <nb-layout-column class="small">
+
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <nb-icon icon="close-circle-outline"></nb-icon>
+  </nb-layout-footer>
+</nb-layout>

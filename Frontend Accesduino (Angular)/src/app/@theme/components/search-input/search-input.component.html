@@ -1,0 +1,3 @@
+<i><nb-icon icon="search"></nb-icon></i>
+<input placeholder="Escribe su solicitud de búsqueda aquí ..." #input
+        [class.hidden]="!isInputShown" (blur)="hideInput()" (input)="onInput($event.toString())">

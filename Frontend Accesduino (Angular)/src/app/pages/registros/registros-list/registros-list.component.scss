@@ -1,0 +1,20 @@
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.medio {
+  flex: 2;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+}
+
+.lateral {
+  flex: 2;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+}
+
+.sizeXL {
+  font-size: 3rem;
+}

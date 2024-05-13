@@ -1,0 +1,55 @@
+<nb-card accent="primary" status="basic" id="htmlData">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>Empleados ordenados por puesto de trabajo</h4>
+      </div>
+    </div>
+
+  </nb-card-header>
+
+
+  <nb-card accent="basic" status="basic" *ngFor="let p of puestos; index as i" [hidden]="getEmpleadosbyPuesto(p).length == 0">
+    <nb-card-header>
+      <div class="row">
+        <div class="lateral">
+          <h5>{{p.nombre}}</h5>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <table class="table text-center table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Nif</th>
+          <th>Telefono</th>
+          <th>Horario</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let e of getEmpleadosbyPuesto(p); index as i">
+          <td class="centerRow">{{i + 1}}</td>
+          <td>{{e.nombre}}</td>
+          <td>{{e.apellidos}}</td>
+          <td>{{e.nif}}</td>
+          <td>{{e.telefono}}</td>
+          <td>{{e.horario.nombre}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </nb-card-body>
+  </nb-card>
+</nb-card>
+<nb-card>
+  <nb-card-footer>
+    <button nbButton size="medium" shape="round" hero status="primary" (click)="generarPdf()">
+      <nb-icon class="sizeXL" icon="printer-outline" [options]="{animation: {type: 'pulse'}}"></nb-icon>
+      Imprimir
+    </button>
+  </nb-card-footer>
+</nb-card>

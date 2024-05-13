@@ -1,0 +1,81 @@
+<nb-card accent="primary" status="basic">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>Filtro</h4>
+      </div>
+      <div class="medio text-right">
+        <div class="row g-2 align-items-center">
+          <div class="col-2">
+            <label for="mes" class="label">
+              Mes:
+            </label>
+          </div>
+          <div class="col-4">
+            <nb-select id="mes" fullWidth placeholder="Filtrar por mes" [(ngModel)]="mesSelect">
+              <nb-option *ngFor="let m of meses; index as im" [value]="m">{{m}}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-2">
+            <label for="empleado" class="label">
+              Empleado:
+            </label>
+          </div>
+          <div class="col-4">
+            <nb-select id="empleado" fullWidth placeholder="Filtrar por Empelado" [(ngModel)]="empleadoSelect">
+              <nb-option *ngFor="let e of empleados; index as im" [value]="e">{{e.nombre}} {{e.apellidos}}</nb-option>
+            </nb-select>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nb-card-header>
+
+</nb-card>
+<nb-card accent="primary" status="basic" id="htmlData">
+  <nb-card-header>
+    <div class="row">
+      <div class="lateral">
+        <h4>Registros de {{empleadoSelect?.nombre}} {{empleadoSelect?.apellidos}}</h4>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body *ngIf="this.getRegistrosbyFiltrado(meses.indexOf(mesSelect), empleadoSelect?.id).length > 0">
+    <table class="table text-center table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Estado</th>
+        <th>Empleado</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Duración</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let p of this.getRegistrosbyFiltrado(meses.indexOf(mesSelect), empleadoSelect?.id); index as i">
+        <td>{{i + 1}}</td>
+        <td>
+          <nb-icon [icon]= "p.control_terminado == 1 ? 'toggle-right-outline' : 'toggle-left-outline'" [options]="{animation: {type: 'pulse'}}" [status]="p.control_terminado == 1 ? 'basic' : 'success'"></nb-icon>
+        </td>
+        <td>{{p.empleado.nombre}} {{p.empleado.apellidos}}</td>
+        <td>{{p.inicio | date:'dd/MM/y H:mm'}}</td>
+        <td>{{p.fin | date:'dd/MM/y H:mm'}}</td>
+        <td>{{p.duracion}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-footer>
+    <button nbButton size="medium" shape="round" hero status="primary" (click)="generarPdf()">
+      <nb-icon class="sizeXL" icon="printer-outline" [options]="{animation: {type: 'pulse'}}"></nb-icon>
+      Imprimir
+    </button>
+  </nb-card-footer>
+</nb-card>

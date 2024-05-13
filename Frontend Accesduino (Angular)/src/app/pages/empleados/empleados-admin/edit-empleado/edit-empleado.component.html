@@ -1,0 +1,226 @@
+<nb-card [accent]="new ? 'success' : 'primary'" status="basic">
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+
+  <nb-card-body class="align-items-center">
+    <nb-alert *ngIf="error.length > 0" outline="danger" role="alert">
+      <p class="alert-title"><b>Error</b></p>
+      <p class="alert-message" *ngFor="let e of error; index as i">{{e}}</p>
+    </nb-alert>
+    <form [formGroup]="empleadoForm" >
+      <nb-tabset>
+        <nb-tab title="Datos" tabIcon="person" responsive>
+          <div class="row border">
+            <div class="col border">
+              <div class="row">
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="nombre" class="col-sm-5 col-form-label text-black-50">
+                      Nombre:
+                    </label>
+                    <div class="col">
+                      <input  type="text" id="nombre"  formControlName="nombre">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="apellidos" class="col-sm-5 col-form-label text-black-50">
+                      Apellidos:
+                    </label>
+                    <div class="col">
+                      <input  type="text" id="apellidos"  formControlName="apellidos">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="nif" class="col-sm col-form-label text-black-50">
+                      NIF:
+                    </label>
+                    <div class="col">
+                      <input type="text" id="nif"  formControlName="nif">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="telefono" class="col-sm col-form-label text-black-50">
+                      Telefono:
+                    </label>
+                    <div class="col">
+                      <input type="tel" id="telefono"  formControlName="telefono">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label for="email" class="col-sm col-form-label text-black-50">
+                    Email:
+                  </label>
+                  <div class="col">
+                    <input type="email" id="email"  formControlName="email">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="direccion" class="col-sm col-form-label text-black-50">
+                      Dirección:
+                    </label>
+                    <div class="col">
+                      <textarea type="text" id="direccion"  formControlName="direccion" rows="9"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-">
+                  <div class="form-group">
+                    <label for="codigoPostal" class="col-sm col-form-label text-black-50">
+                      Código postal:
+                    </label>
+                    <div class="col">
+                      <input type="text" id="codigoPostal"  formControlName="codPostal">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="poblacion" class="col-sm col-form-label text-black-50">
+                      Población:
+                    </label>
+                    <div class="col">
+                      <input type="text" id="poblacion"  formControlName="poblacion">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="provincia" class="col-sm col-form-label text-black-50">
+                      Provincia:
+                    </label>
+                    <div class="col">
+                      <input type="text" id="provincia"  formControlName="provincia">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col border">
+              <div class="card-body">
+                <img [src]="imagePreview == null ? empleado?.asset.links.thumb : imagePreview" class="card-img-top" id="imagen">
+              </div>
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="assets" (change)="onFileChange($event)"/>
+                  <label class="custom-file-label" for="assets"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab title="Datos tecnicos" tabIcon="pantone" responsive>
+          <div class="row border">
+            <div class="col border">
+<!--              costes-->
+              <div class="row">
+                <div class="col-">
+                  <div class="form-group">
+                    <label for="costeHora" class="col-sm col-form-label text-black-50">
+                      Coste:
+                    </label>
+                    <div class="col">
+                      <input  type="number" id="costeHora"  formControlName="costeHora" step="0.00">
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="costeHoraExtra" class="col-sm col-form-label text-black-50">
+                      Coste hora extra:
+                    </label>
+                    <div class="col">
+                      <input  type="number" id="costeHoraExtra"  formControlName="costeHoraExtra">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                  <div class="form-group">
+                    <label for="uuidTarjeta" class="col-sm col-form-label text-black-50">
+                      Tarjeta identificación:
+                    </label>
+                    <div class="col">
+                      <input type="text" id="uuidTarjeta"  formControlName="uidTarjeta">
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <label for="puesto" class="col-sm col-form-label text-black-50">
+                    Puesto:
+                  </label>
+                  <div class="col">
+                    <nb-select  id="puesto" fullWidth [formControl]="empleadoForm.controls.puestoUuid">
+                      <nb-option *ngFor="let p of puestos; index as i" [value]="p.id">{{p.nombre}}</nb-option>
+                    </nb-select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="horario" class="col-sm col-form-label text-black-50">
+                    Horario:
+                  </label>
+                  <div class="col">
+                    <nb-select  id="horario" fullWidth [formControl] = "empleadoForm.controls.horarioUuid" >
+                      <nb-option *ngFor="let h of horarios; index as i" [value]="h.id">{{h.nombre}}</nb-option>
+                    </nb-select>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col border">
+              <div class="form-group">
+                <label for="password" class="col-sm col-form-label text-black-50">
+                  Password:
+                </label>
+                <div class="col">
+                  <input type="password" id="password"  formControlName="password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password_confirmation" class="col-sm col-form-label text-black-50">
+                  Confirme Password:
+                </label>
+                <div class="col">
+                  <input type="password" id="password_confirmation"  formControlName="password_confirmation">
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="text-center butons">
+    <button type="button" nbButton status="success" (click)="guardar()">
+      Guardar
+    </button>
+
+    <button type="button" nbButton status="danger" (click)="cancelar()">
+      Cancelar
+    </button>
+  </nb-card-footer>
+</nb-card>
+
